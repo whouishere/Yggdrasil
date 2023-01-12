@@ -3,12 +3,16 @@
 using BinaryBuilder, Pkg
 
 name = "Raylib"
-version = v"4.0.0"
+version = v"4.2.0"
 
 # Collection of sources required to complete build
 sources = [
     GitSource("https://github.com/raysan5/raylib.git",
-              "0851960397f02a477d80eda2239f90fae14dec64"),
+              "bf2ad9df5fdcaa385b2a7f66fd85632eeebbadaa"),
+    GitSource("https://github.com/raysan5/raygui.git",
+	      "4e2a878e715c4aafa6ad7bd58d851221503c6e60"),
+    GitSource("https://github.com/raysan5/physac.git",
+	      "4a8e17f263fb8e1150b3fbafc96f880c7d7a4833"),
     DirectorySource("./bundled"),
 ]
 
@@ -18,7 +22,7 @@ cd $WORKSPACE/srcdir/raylib/src/
 
 atomic_patch -p1 ../../patches/add-missing-header.patch
 atomic_patch -p1 ../../patches/make-install-everywhere.patch
-atomic_patch -p2 ../../patches/make-ldflags-windows.patch
+atomic_patch -p2 ../../patches/make-ldlibs-windows.patch
 
 export CFLAGS="-D_POSIX_C_SOURCE=200112L"
 if [[ "${target}" == *-freebsd* ]]; then

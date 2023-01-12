@@ -1,6 +1,6 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -619,21 +619,20 @@
+@@ -718,21 +718,20 @@ RAYLIB_INSTALL_PATH ?= $(DESTDIR)/lib
  RAYLIB_H_INSTALL_PATH ?= $(DESTDIR)/include
  
  install :
@@ -9,14 +9,12 @@
          # Attention! You are root, writing files to $(RAYLIB_INSTALL_PATH)
          # and $(RAYLIB_H_INSTALL_PATH). Consult this Makefile for more information.
          # Prepare the environment as needed.
--		mkdir --parents --verbose $(RAYLIB_INSTALL_PATH)
--		mkdir --parents --verbose $(RAYLIB_H_INSTALL_PATH)
+		mkdir --parents --verbose $(RAYLIB_INSTALL_PATH)
+		mkdir --parents --verbose $(RAYLIB_H_INSTALL_PATH)
 -        ifeq ($(RAYLIB_LIBTYPE),SHARED)
 -            # Installing raylib to $(RAYLIB_INSTALL_PATH).
-+	mkdir --parents --verbose $(RAYLIB_INSTALL_PATH)
-+	mkdir --parents --verbose $(RAYLIB_H_INSTALL_PATH)
 +ifeq ($(RAYLIB_LIBTYPE),SHARED)
-+                # Installing raylib to $(RAYLIB_INSTALL_PATH).
++    # Installing raylib to $(RAYLIB_INSTALL_PATH).
 +ifeq ($(PLATFORM_OS),LINUX)
  			cp --update --verbose $(RAYLIB_RELEASE_PATH)/libraylib.so.$(RAYLIB_VERSION) $(RAYLIB_INSTALL_PATH)/lib$(RAYLIB_LIB_NAME).so.$(RAYLIB_VERSION)
  			cd $(RAYLIB_INSTALL_PATH); ln -fsv lib$(RAYLIB_LIB_NAME).so.$(RAYLIB_VERSION) lib$(RAYLIB_LIB_NAME).so.$(RAYLIB_API_VERSION)
@@ -30,9 +28,9 @@
          else
              # Installing raylib to $(RAYLIB_INSTALL_PATH).
  			cp --update --verbose $(RAYLIB_RELEASE_PATH)/lib$(RAYLIB_LIB_NAME).a $(RAYLIB_INSTALL_PATH)/lib$(RAYLIB_LIB_NAME).a
-@@ -644,12 +643,6 @@
- 		cp --update rlgl.h $(RAYLIB_H_INSTALL_PATH)/rlgl.h
- 		cp --update extras/physac.h $(RAYLIB_H_INSTALL_PATH)/physac.h
+@@ -744,12 +743,6 @@ ifeq ($(ROOT),root)
+ 		cp --update $(RAYLIB_MODULE_PHYSAC_PATH)/physac.h $(RAYLIB_H_INSTALL_PATH)/physac.h
+ 		cp --update $(RAYLIB_MODULE_RAYGUI_PATH)/raygui.h $(RAYLIB_H_INSTALL_PATH)/raygui.h
  		@echo "raylib development files installed/updated!"
 -    else
 -		@echo "This function currently works on GNU/Linux systems. Add yours today (^;"
